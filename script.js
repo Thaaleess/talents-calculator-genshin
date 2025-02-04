@@ -146,10 +146,9 @@ const calculateResult = () => {
 
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = `<h2>Result:</h2>
-  
-  ${totalTalentBooks.star2 ? `
   <hr>
   <p class="result-title"><strong>Talent Books needed:</strong></p>
+  ${totalTalentBooks.star2 ? `
   <div class="result-item">
     <img src="img/talent1.png" class="result-icon">
     <span><strong>x${totalTalentBooks.star2}</strong> - 2 stars book (⭐⭐)</span>
@@ -164,10 +163,10 @@ const calculateResult = () => {
     <img src="img/talent3.png" class="result-icon">
     <span><strong>x${totalTalentBooks.star4}</strong> - 4 stars book (⭐⭐⭐⭐)</span>
   </div>` : ''}
-  
-  ${totalEnhancementMaterials.star1 ? `
   <hr>
+  
   <p class="result-title"><strong>Enhancement Materials needed:</strong></span>
+  ${totalEnhancementMaterials.star1 ? `
   <div class="result-item">
     <img src="img/mob1.png" class="result-icon">
     <span><strong>x${totalEnhancementMaterials.star1}</strong> - 1 star material (⭐)</span>
