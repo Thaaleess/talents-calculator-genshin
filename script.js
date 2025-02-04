@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('calculateBtn').addEventListener('click', calculateResult);
   document.getElementById('clearBtn').addEventListener('click', clearResult);
 
-  populateDropdowns();
+  fillDropdowns();
 });
 
 const talentBooksData = {
@@ -52,7 +52,7 @@ const crownData = {
   10: 1,
 };
 
-const populateDropdowns = () => {
+const fillDropdowns = () => {
   const dropdowns = document.querySelectorAll('select');
   dropdowns.forEach((dropdown) => {
     for (let i = 1; i <= 10; i++) {
@@ -114,14 +114,10 @@ const calculateResult = () => {
   let totalWeeklyBossDrop = 0;
   let totalMora = 0;
   let totalCrown = 0;
-  let error;
-  let start;
-  let end;
-
 
   for (let i = 1; i <= 3; i++) {
-    start = parseInt(formData.get(`field${i}_1`));
-    end = parseInt(formData.get(`field${i}_2`));
+    let start = parseInt(formData.get(`field${i}_1`));
+    let end = parseInt(formData.get(`field${i}_2`));
 
     const talentMaterials = calculateMaterials(start, end, talentBooksData);
     totalTalentBooks.star2 += talentMaterials.star2;
@@ -145,9 +141,12 @@ const calculateResult = () => {
   }
 
   const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = `<h2>Result:</h2>
-  <hr>
-  <p class="result-title"><strong>Talent Books needed:</strong></p>
+  resultDiv.innerHTML = `
+  ${totalTalentBooks.star2 || totalTalentBooks.star3 || totalTalentBooks.star4 ? `
+    <h2>Result:</h2>
+    <hr>
+    <p class="result-title"><strong>Talent Books needed:</strong></p>` : ''
+  }
   ${totalTalentBooks.star2 ? `
   <div class="result-item">
     <img src="img/talent1.png" class="result-icon">
@@ -163,9 +162,11 @@ const calculateResult = () => {
     <img src="img/talent3.png" class="result-icon">
     <span><strong>x${totalTalentBooks.star4}</strong> - 4 stars book (⭐⭐⭐⭐)</span>
   </div>` : ''}
-  <hr>
-  
-  <p class="result-title"><strong>Enhancement Materials needed:</strong></span>
+
+  ${totalEnhancementMaterials.star1 || totalEnhancementMaterials.star2 || totalEnhancementMaterials.star3 ? `
+    <hr>
+    <p class="result-title"><strong>Enhancement Materials needed:</strong></span>` : ''
+  }
   ${totalEnhancementMaterials.star1 ? `
   <div class="result-item">
     <img src="img/mob1.png" class="result-icon">
@@ -181,9 +182,9 @@ const calculateResult = () => {
     <img src="img/mob3.png" class="result-icon">
     <span><strong>x${totalEnhancementMaterials.star3}</strong> - 3 stars material (⭐⭐⭐)</span>
   </div>` : ''}
-  <hr>
 
   ${totalWeeklyBossDrop ? `
+  <hr>
   <div class="result-item">
     <img src="img/weeklyboss.png" class="result-icon">
     <span>Weekly Boss Drops: <strong>x${totalWeeklyBossDrop}</strong></span>
@@ -202,7 +203,6 @@ const calculateResult = () => {
     <span>Crowns of Insight needed: <strong>x${totalCrown}</strong></span>
   </div>` : ''}`;
 }
-
 
 const clearResult = () => {
   document.getElementById('talentForm').reset();
